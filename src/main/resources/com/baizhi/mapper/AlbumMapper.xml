@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.AlbumMapper">
+    <select id="findByPage" parameterType="Integer" resultType="album">
+        select * from album limit #{start},#{rows}
+    </select>
+
+    <insert id="save" parameterType="banner">
+        insert into album values (#{id},#{title},#{img},#{score},#{author},#{beam},#{counts},#{publish_date},#{content})
+    </insert>
+
+    <select id="getcount" resultType="Integer">
+        select count(*) from album
+    </select>
+
+    <delete id="del">
+        delete from album where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="upd">
+        update album set
+        <trim suffixOverrides=",">
+            <if test="title!=null">title=#{title},</if>
+            <if test="img!=null">img=#{img},</if>
+            <if test="score!=null">score=#{score},</if>
+            <if test="author!=null">author=#{author},</if>
+            <if test="beam!=null">beam=#{beam},</if>
+            <if test="counts!=null">counts=#{counts},</if>
+            <if test="publish_date!=null">publish_date=#{publish_date},</if>
+            <if test="content!=null">content=#{content}</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <update id="updateCount" parameterType="album">
+        update album set counts=#{counts} where id=#{id}
+    </update>
+
+    <select id="findOne" resultType="album" parameterType="java.lang.String">
+        select * from album where id=#{id}
+    </select>
+</mapper>

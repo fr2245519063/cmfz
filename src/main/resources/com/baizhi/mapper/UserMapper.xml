@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.UserMapper">
+
+    <select id="findByPage" resultType="user" parameterType="java.lang.Integer">
+        select * from  `user` limit #{start},#{rows}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from user
+    </select>
+
+    <insert id="insert">
+        insert into `user` values (#{id},#{head_img},#{faname},#{names},#{sex},#{city},#{sign},#{username},#{password},#{status},#{newdata})
+    </insert>
+
+    <update id="update">
+        update `user` set
+        <trim suffixOverrides=",">
+            <if test="head_img!=null">head_img=#{head_img},</if>
+            <if test="faname!=null">faname=#{faname},</if>
+            <if test="names!=null">`names`=#{names},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="city!=null">city=#{city},</if>
+            <if test="sign!=null">sign=#{sign},</if>
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="newdata!=null">newdata=#{newdata},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+    delete from `user` where id in
+    <foreach collection="array" open="(" separator="," close=")" item="id">
+        #{id}
+    </foreach>
+    </delete>
+
+    <select id="findByCount" resultType="java.lang.Integer" >
+        select count(*) from user where sex = #{sex} and DATE_SUB(NOW(),INTERVAL #{day} day) &lt; newdata
+    </select>
+
+    <select id="findAll" resultType="users">
+         select city name,count(id) `value` from `user` group by city
+    </select>
+
+    <select id="findOne" resultType="user" parameterType="java.lang.String">
+        select * from user where id=#{id}
+    </select>
+
+
+</mapper>

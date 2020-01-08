@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.BannerMapper">
+    <insert id="insert" parameterType="banner">
+        insert into banner values(#{id},#{img},#{title},#{status},#{des},#{create_date})
+    </insert>
+
+    <update id="update">
+        update banner set
+        <trim suffixOverrides=",">
+            <if test="img!=null">img=#{img},</if>
+            <if test="title!=null">title=#{title},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="create_date!=null">create_date=#{create_date},</if>
+            <if test="des!=null">des=#{des}</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <select id="findAll" resultType="banner">
+        select * from banner
+    </select>
+    <delete id="delete">
+        delete from banner where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="findByPage" parameterType="Integer" resultType="banner">
+        select * from banner limit #{start},#{rows}
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(*) from banner
+    </select>
+
+    <select id="findTime" resultType="banner">
+        select * from banner where datediff(NOW(),create_date)
+    </select>
+
+</mapper>
