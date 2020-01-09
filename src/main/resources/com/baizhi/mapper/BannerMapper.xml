@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baizhi.mapper.BannerMapper">
+    <!--mybatis 的二级缓存
+    <cache type="com.baizhi.util.MyBatisCache"></cache>
+    -->
     <insert id="insert" parameterType="banner">
         insert into banner values(#{id},#{img},#{title},#{status},#{des},#{create_date})
     </insert>

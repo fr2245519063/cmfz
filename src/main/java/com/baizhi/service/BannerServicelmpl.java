@@ -4,6 +4,8 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baizhi.entity.Banner;
 import com.baizhi.mapper.BannerMapper;
+import com.baizhi.util.ClearCache;
+import com.baizhi.util.SelectCache;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +75,8 @@ public class BannerServicelmpl implements BannerService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
+    @SelectCache
+    @ClearCache
     public Map<String, Object> findByPage(Integer page, Integer rows) {
         Integer start = (page - 1) * rows;
         //总条数
