@@ -264,20 +264,5 @@ public class JeiController {
         }
     }
 
-    @RequestMapping("deleteTask")
-    public Map<String,Object> Task(String uid,String tid){
-        Map hashMap = new HashMap<String ,Object>();
-        User one = userMapper.findOne(uid);
-        if(one!=null){
-            taskMapper.delete(tid);
-            hashMap.put("status","200");
-            hashMap.put("message","删除成功");
-            return hashMap;
-        }else{
-            hashMap.put("status","-200");
-            hashMap.put("message","删除失败");
-            return hashMap;
-        }
-    }
 
 }
