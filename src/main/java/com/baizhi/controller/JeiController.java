@@ -40,6 +40,9 @@ public class JeiController {
     GuruMapper guruMapper;
     @Autowired
     TaskMapper taskMapper;
+    @Autowired
+    private String id;
+
 
     @RequestMapping("login")
     public Map<String ,Object> login(String username, String password){
@@ -256,10 +259,12 @@ public class JeiController {
             taskMapper.delete(tid);
             hashMap.put("status","200");
             hashMap.put("message","删除成功");
+         
             return hashMap;
         }else{
             hashMap.put("status","-200");
             hashMap.put("message","删除失败");
+
             return hashMap;
         }
     }
@@ -276,6 +281,7 @@ public class JeiController {
         }else{
             hashMap.put("status","-200");
             hashMap.put("message","删除失败");
+             s
             return hashMap;
         }
     }
